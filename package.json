@@ -36,12 +36,8 @@
     "lodash": "^4.17.21",
     "luxon": "^3.7.1",
     "nanoid": "^5.1.5",
-<<<<<<< HEAD
-    "node-sql-parser": "^5.3.11",
-    "openai": "^5.15.0",
-=======
     "node-sql-parser": "^5.3.13",
->>>>>>> da0f084d47cd5cb4992df6d3a23707543338e796
+    "openai": "^5.15.0",
     "oracle-sql-parser": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
