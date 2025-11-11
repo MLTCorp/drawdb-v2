@@ -19,6 +19,9 @@ export const ProjectsProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const loadProjects = async () => {
+    if (!supabase) {
+      return { data: [], error: new Error('Backend not configured') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -26,7 +29,7 @@ export const ProjectsProvider = ({ children }) => {
         .select('*')
         .eq('usuario_id', user.id)
         .order('atualizado_em', { ascending: false });
-      
+
       if (error) throw error;
       setProjects(data || []);
       return { data, error: null };
@@ -39,6 +42,9 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const createProject = async (nome, descricao = '') => {
+    if (!supabase) {
+      return { data: null, error: new Error('Backend not configured') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -60,7 +66,7 @@ export const ProjectsProvider = ({ children }) => {
         .single();
 
       if (error) throw error;
-      
+
       // Add to local state
       setProjects(prev => [data, ...prev]);
       return { data, error: null };
@@ -73,6 +79,9 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const updateProject = async (id, updates) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Backend not configured') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -88,8 +97,8 @@ export const ProjectsProvider = ({ children }) => {
       if (error) throw error;
 
       // Update local state
-      setProjects(prev => 
-        prev.map(project => 
+      setProjects(prev =>
+        prev.map(project =>
           project.id === id ? { ...project, ...data } : project
         )
       );
@@ -109,6 +118,9 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const deleteProject = async (id) => {
+    if (!supabase) {
+      return { error: new Error('Backend not configured') };
+    }
     try {
       setLoading(true);
       const { error } = await supabase
@@ -120,7 +132,7 @@ export const ProjectsProvider = ({ children }) => {
 
       // Remove from local state
       setProjects(prev => prev.filter(project => project.id !== id));
-      
+
       // Clear current project if it's the one being deleted
       if (currentProject?.id === id) {
         setCurrentProject(null);
@@ -136,6 +148,9 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const loadProject = async (id) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Backend not configured') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -145,7 +160,7 @@ export const ProjectsProvider = ({ children }) => {
         .single();
 
       if (error) throw error;
-      
+
       setCurrentProject(data);
       return { data, error: null };
     } catch (error) {
@@ -157,6 +172,9 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const saveProjectData = async (projectId, diagramData) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Backend not configured') };
+    }
     try {
       const { data, error } = await supabase
         .from('projetos')
