@@ -16,6 +16,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     // Get initial session
     const getInitialSession = async () => {
       const { data: { session }, error } = await supabase.auth.getSession();
@@ -42,6 +47,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signUp = async (email, password, metadata = {}) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Authentication service not available') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase.auth.signUp({
@@ -63,6 +71,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signIn = async (email, password) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Authentication service not available') };
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -81,6 +92,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOut = async () => {
+    if (!supabase) {
+      return { error: new Error('Authentication service not available') };
+    }
     try {
       setLoading(true);
       const { error } = await supabase.auth.signOut();
@@ -96,6 +110,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const resetPassword = async (email) => {
+    if (!supabase) {
+      return { data: null, error: new Error('Authentication service not available') };
+    }
     try {
       const { data, error } = await supabase.auth.resetPasswordForEmail(email);
       if (error) throw error;
