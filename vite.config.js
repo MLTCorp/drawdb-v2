@@ -4,4 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    include: ['@douyinfe/semi-icons', '@douyinfe/semi-ui']
+  }
 })

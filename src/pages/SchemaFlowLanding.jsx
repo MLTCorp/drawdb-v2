@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Typography, Card, Avatar, Space, Collapse, Progress } from '@douyinfe/semi-ui';
-import { IconChevronDown, IconCheck } from '@douyinfe/semi-icons';
+import { IconChevronDown } from '@douyinfe/semi-icons';
 
 const { Title, Paragraph } = Typography;
 
