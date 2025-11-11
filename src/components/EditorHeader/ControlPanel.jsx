@@ -136,12 +136,8 @@ export default function ControlPanel({
   const { selectedElement, setSelectedElement } = useSelect();
   const { transform, setTransform } = useTransform();
   const { t, i18n } = useTranslation();
-<<<<<<< HEAD
-  const { version, setGistId } = useContext(IdContext);
-=======
   const { version, gistId, setGistId } = useContext(IdContext);
   const navigate = useNavigate();
->>>>>>> da0f084d47cd5cb4992df6d3a23707543338e796
 
   const invertLayout = (component) =>
     setLayout((prev) => ({ ...prev, [component]: !prev[component] }));
